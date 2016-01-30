@@ -1,7 +1,9 @@
 ---
 title: Path variables in Java (Railo)
+summary: Or rather, why wasn't CFSelenium picking up the Firefox directory I specified in the path environment variable?
+categories: [ColdFusion]
+tags: [ColdFusion]
 ---
 
-<p>I knew it was due to caching but I wanted to make sure the JVM was indeed caching the path variable.</p>
-<pre class="code">   path = createObject("java", "java.lang.System").getenv("PATH");   dump(path.listToArray(";"));  </pre>    <p>This proved the change I has made wasn't being picked up.</p>
-<p>I couldn't find a way to refresh this so I ended up reboot my machine which meant the changed were picked up.</p>
+Or rather, why wasn't CFSelenium picking up the Firefox directory I specified in the path environment variable?
+<p>I knew it was due to caching but I wanted to make sure the JVM was indeed caching the path variable.</p>    <pre class="code">   path = createObject("java", "java.lang.System").getenv("PATH");   dump(path.listToArray(";"));  </pre>    <p>This proved the change I has made wasn't being picked up.</p>  <p>I couldn't find a way to refresh this so I ended up reboot my machine which meant the changed were picked up.</p>

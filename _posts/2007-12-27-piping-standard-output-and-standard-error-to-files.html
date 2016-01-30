@@ -1,7 +1,9 @@
 ---
 title: Piping standard output and standard error to files
+summary: Issues with ColdFusion's cfexecute mean having to suppress output and errors from an executatable call. Here's how...
+categories: [Miscellaneous]
+tags: [Miscellaneous]
 ---
 
-<p>vspider and ffmpeg by default push data to standard error and/or standard output which has been hinted at being the cause of the process hanging due to CF not liking the amount of data.</p>
-    <p>To get around it you can suppress the output if a flag exists for the executable. For vspider it's    <pre style="background: #ff9; padding: 15px;">-loglevel nostdout</pre>    <p>But for ffmpeg I couldn't see a flag, so instead I piped the data into files like so:</p>
-    <pre style="background: #ff9; padding: 15px;">ffmpeg -i PATH_TO_INPUT_FILE PATH_TO_OUTPUT_FILE 1> STD_OUTPUT_FILE 2> STD_ERROR_FILE</pre>    <p>I would love to know more about the bug or problem CF has with cfexcute if anyone knows.</p>
+Issues with ColdFusion's cfexecute mean having to suppress output and errors from an executatable call. Here's how...
+<p>vspider and ffmpeg by default push data to standard error and/or standard output which has been hinted at being the cause of the process hanging due to CF not liking the amount of data.</p>    <p>To get around it you can suppress the output if a flag exists for the executable. For vspider it's    <pre style="background: #ff9; padding: 15px;">-loglevel nostdout</pre>    <p>But for ffmpeg I couldn't see a flag, so instead I piped the data into files like so:</p>    <pre style="background: #ff9; padding: 15px;">ffmpeg -i PATH_TO_INPUT_FILE PATH_TO_OUTPUT_FILE 1> STD_OUTPUT_FILE 2> STD_ERROR_FILE</pre>    <p>I would love to know more about the bug or problem CF has with cfexcute if anyone knows.</p>

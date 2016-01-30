@@ -1,6 +1,9 @@
 ---
 title: Get and remove default constraint
+summary: Dropping a column with a default constraint in SQL Server (at least 2005) means removing the constraint first.
+categories: [SQL]
+tags: [SQL]
 ---
 
-<p>If you don't know the name of the constraint (you're scripting the drop column for example) you need a way to programmatically get the name of the constraint.</p>
-<pre class="code">  DECLARE @constraintName NVARCHAR(200), @tableName NVARCHAR(200), @columnName NVARCHAR(200)    SELECT @tableName = 'TABLE', @columnName = 'COLUMN'    SELECT @constraintName = obj.name  FROM sys.columns col  LEFT JOIN sys.objects obj ON obj.object_id = col.default_object_id and obj.type = 'D'   WHERE col.object_id = object_id(@tableName)   AND obj.name IS NOT NULL  AND col.name = @columnName    EXECUTE('ALTER TABLE ' + @tableName + ' DROP CONSTRAINT [' + @constraintName + ']')  </pre>
+Dropping a column with a default constraint in SQL Server (at least 2005) means removing the constraint first.
+<p>If you don't know the name of the constraint (you're scripting the drop column for example) you need a way to programmatically get the name of the constraint.</p>    <pre class="code">  DECLARE @constraintName NVARCHAR(200), @tableName NVARCHAR(200), @columnName NVARCHAR(200)    SELECT @tableName = 'TABLE', @columnName = 'COLUMN'    SELECT @constraintName = obj.name  FROM sys.columns col  LEFT JOIN sys.objects obj ON obj.object_id = col.default_object_id and obj.type = 'D'   WHERE col.object_id = object_id(@tableName)   AND obj.name IS NOT NULL  AND col.name = @columnName    EXECUTE('ALTER TABLE ' + @tableName + ' DROP CONSTRAINT [' + @constraintName + ']')  </pre>
