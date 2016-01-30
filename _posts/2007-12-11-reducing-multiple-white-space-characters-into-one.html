@@ -1,0 +1,10 @@
+---
+title: Reducing multiple white space characters into one
+---
+
+<p>I thought this was possible with a Regular Expression in CF but after having a think, I can't see how. So, the next best thing has to be ColdFusion's List functions surely.</p>
+    <p>So, to reduce multiple white space characters into one manageable one. Try the following.</p>
+    <p>Treat the string as a list and change the delimiters to a non-printable character like bell(Chr(7) in ColdFusion). ColdFusion ignores empty list values. Showing this with commars, the following list...</p>
+    <pre style="background: #ff9; padding: 15px;">1,2,3,4,5,,,,6</pre>    <p>... has six items if we use commar as the delimiter. So when we switch delimiters, all multiples are reduced to one. Here's some sample code</p>
+    <pre style="background: #ff9; padding: 15px;">&lt;cfset str = &quot;There's a tab here and five spaces here    .&quot;&gt;    &lt;cfset str = ListChangeDelims(str, Chr(7), &quot;  #Chr(10)##Chr(13)#&quot;)&gt;    &lt;cfset str = Replace(str, Chr(7), &quot; &quot;, &quot;ALL&quot;)&gt;</pre>    <p>The third argument to ListChangeDelims() is a string comprised of a space, a tab, carridge return and a line feed. The most likely white space characters to appear in a web page.</p>
+    <p>I'd be interested to know if there's a better, faster way.</p>

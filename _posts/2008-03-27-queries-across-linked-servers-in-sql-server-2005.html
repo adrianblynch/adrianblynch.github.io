@@ -1,0 +1,11 @@
+---
+title: Queries across linked servers in SQL Server 2005
+---
+
+<p>In the development server, add a linked server with the following:</p>
+    <pre style="background: #ff9; padding: 15px;">  EXEC sp_addlinkedserver 'THE_OTHER_SERVER', N'SQL Server'  </pre>    <p>Note that you should get two &quot;(1 row(s) affected)&quot; messages.</p>
+    <p>Then navigate to:</p>
+    <pre style="background: #ff9; padding: 15px;">  Server Objects &gt; Linked Servers &gt; Providers   </pre>    <p>Here you should see THE_OTHER_SERVER listed. Right click on this and in the security tab add a user name and password.  Click ok and then you should be able to access THE_OTHER_SERVER with the following syntax:</p>
+    <pre style="background: #ff9; padding: 15px;">  SELECT * FROM THE_OTHER_SERVER.DATABASE.OWNER.TABLE  </pre>    <p>Another note, I wanted to truncate a table using the above syntax but you will get a message:</p>
+    <pre style="background: #ff9; padding: 15px;">  Msg 117, Level 15, State 1, Line 1  The object name 'THE_OTHER_SERVER.DATABASE.OWNER.' contains more than the maximum number of prefixes. The maximum is 2.  </pre>    <p>I'm sure there are other limitations out there too.</p>
+    <p>And 2 minutes after posting I found another. Using SELECT INTO.</p>

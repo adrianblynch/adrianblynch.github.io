@@ -1,0 +1,12 @@
+---
+title: Railo - Inner functions vs. Data structures
+---
+
+<p>A new(ish) way in Railo is to use a nested function.</p>
+<p>Take this unit test:</p>
+<pre class="code">  function testGetEnvironment() {     testName = getTestName(getFunctionCalledName());     host = "127.0.0.1";   env = "local";   assert(appUtils.getEnvironment(host) EQ env, "Host [#host#] yields environment [#env#]", testName);     host = "dev-xxx.yyy.net";   env = "dev";   assert(appUtils.getEnvironment(host) EQ env, "Host [#host#] yields environment [#env#]", testName);     host = "xxx.yyy.net";   env = "live";   assert(appUtils.getEnvironment(host) EQ env, "Host [#host#] yields environment [#env#]", testName);     host = "no.such.host";   env = "unknown";   assert(appUtils.getEnvironment(host) EQ env, "Host [#host#] yields environment [#env#]", testName);    }  </pre>    <p>Four blocks, almost the same. We could do this:</p>
+<pre class="code">  function testGetEnvironment() {     testName = getTestName(getFunctionCalledName());     hostEnvMap = [    {host = "127.0.0.1", env = "local"},    {host = "dev-xxx.yyy.net", env = "dev"},    {host = "xxx.yyy.net", env = "live"},    {host = "no.such.host", env = "unknown"}   ];     for (hostEnv in hostEnvMap) {    assert(appUtils.getEnvironment(hostEnv.host) EQ hostEnv.env, "Host [#hostEnv.host#] yields environment [#hostEnv.env#]", testName);   }    }  </pre>    <p>Or we could use a nested function:</p>
+<pre class="code">  function testGetEnvironment() {     testName = getTestName(getFunctionCalledName());     test = function(host, env) {    assert(appUtils.getEnvironment(host) EQ env, "Host [#host#] yields environment [#env#]", testName);   };     test("127.0.0.1", "local");   test("dev-xxx.yyy.net", "dev");   test("xxx.yyy.net", "live");   test("no.such.host", "unknown");    }  </pre>    <p>Which is better?</p>
+<p>If the inner function ever needed to be made available outside of the outer function, it pops right out. If on the other hand the data structure is of more use to other parts of the application, the later is preferable.</p>
+<p>I think the nested function reads better.</p>
+<p>In the example given, a unit test, the data structure is very much throw-away. Hence why I went with the inner function.</p>

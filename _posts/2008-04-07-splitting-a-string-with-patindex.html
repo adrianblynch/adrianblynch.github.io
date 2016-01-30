@@ -1,0 +1,13 @@
+---
+title: Splitting a string with PATINDEX
+---
+
+<p>I wanted to return only the outcode portion of a postcode. So from 'SW11 3UZ' I wanted only 'SW11'.</p>
+    <p>Now the first part is of variable length, so I couldn't use LEFT(postcode, 4), and the space might not be a space, so CHARINDEX(' ') is out too because it could be a tab or two spaces, or two tabs, or a tab and a space, or two tabs and a space, or three spaces... you can see where I'm going with this.</p>
+    <p>So what to do? Well, regular expressions are always good, so using PATINDEX we can say, &quot;find me the first index of a space or a tab&quot; with:</p>
+    <pre style="background: #ff9; padding: 15px;">  PATINDEX('%[  ]%', postcode)  </pre>    <p>Then give me everything up to that index:</p>
+    <pre style="background: #ff9; padding: 15px;">  SUBSTRING(postcode, 1, PATINDEX('%[  ]%', postcode))  </pre>    <p>With the full SELECT statement, with a DINSTINCT, as:</p>
+    <pre style="background: #ff9; padding: 15px;">  SELECT DISTINCT SUBSTRING(postcode, 1, PATINDEX('%[  ]%', postcode)) outcode  FROM property  </pre>    <p>Note: there is a space and a tab between the [ and ].</p>
+    <p>As it is, this will return one of the white space characters along with the outcode. So you're probably thinking the same as me, add a -1 to SUBSTRING to remove it. But what about when the pattern isn't matched and PATINDEX returns 0? Well, we'll end up with SUBSTRING(1, -1, postcode) and we get an error because the second argument to SUBSTRING needs to be positive.</p>
+    <p>So we can either live with the white space or we can add RTRIM() to remove it. Which leaves us with the working example:</p>
+    <pre style="background: #ff9; padding: 15px;">  SELECT DISTINCT RTRIM(SUBSTRING(postcode, 1, PATINDEX('%[  ]%', postcode))) outcode  FROM property  </pre>

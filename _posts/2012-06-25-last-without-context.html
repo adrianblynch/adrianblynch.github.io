@@ -1,0 +1,19 @@
+---
+title: :last without context
+---
+
+Because I think it's broken! Well, the way it works is wrong. Or maybe I'm missing something?    <p>Given the following HTML:</p>
+    <pre style="background: #ff9; padding: 15px;">  &lt;ul class="broken">   &lt;li>List 1 - 1&lt;/li>   &lt;li>List 1 - 2&lt;/li>   &lt;li>List 1 - 3&lt;/li>  &lt;/ul>    &lt;ul class="broken">   &lt;li>List 2 - 1&lt;/li>   &lt;li>List 2 - 2&lt;/li>   &lt;li>List 2 - 3&lt;/li>  &lt;/ul>  </pre>    <p>What would you expect the following jQuery to do?</p>
+    <pre style="background: #ff9; padding: 15px;">  $(function() {   $("ul.broken li:last").css("backgroundColor", "#cccccc");  });  </pre>    <p>I read it as "Change the background colour for each last li element in an unordered list".</p>
+    <p>But what it actually does, is change the last li in the full jQuery selection. See below:</p>
+    <style type="text/css">   ul.broken li, ul.fixed li, ol li {    width: 12em;   }  </style>    <ul class="broken">   <li>List 1 - 1</li>   <li>List 1 - 2</li>   <li>List 1 - 3</li>  </ul>    <ul class="broken">   <li>List 2 - 1</li>   <li>List 2 - 2</li>   <li>List 2 - 3</li>  </ul>    <script type="text/javascript">  $(function() {   $("ul.broken li:last").css("backgroundColor", "#cccccc");  });  </script>    <p>I've come across this problem before and have worked around it. Those pieces of code were always more complex, so I didn't bother thinking too much.</p>
+    <p>This time however, it's as simple as it gets and I'd like an answer.</p>
+    <p>I have HTML content that the user can modify. Styling this content is fine, but I add classes like 'last' and 'first' to list elements to make things look nice. For example:</p>
+    <pre style="background: #ff9; padding: 15px;">  &lt;ol>   &lt;li>Item 1&lt;/li>   &lt;li>Item 1&lt;/li>   &lt;li>Item 1&lt;/li>  &lt;/ol>    &lt;style type="text/css">   ol li {    border-bottom: 1px solid #cccccc;   }  &lt;/style>  </pre>    <p>Produces:</p>
+    <ol>   <li>Item 1</li>   <li>Item 1</li>   <li>Item 1</li>  </ol>    <style type="text/css">   ol li {    border-bottom: 1px solid #cccccc;   }  </style>      <p>I'd rather not have the bottom border on the last element, so I add a class of last and remove it accordingly. This works great but...</p>
+    <p>... along comes the client and edits the list. The class="last" is lost and the border reappears.</p>
+    <p>I could handle this in my serverside code but that's complicating things for what isn't the biggest of problems. Instead, I like to use jQuery to modify the DOM and add classes and styles that make things look nicer but also don't look terrible if they fail through lack of JavaScript.</p>
+    <p>So, how to fix the problem.</p>
+    <p>Add context for the 'li:last' selector.</p>
+    <p>The following jQuery line says "Change the BG colour of the last li in every ul with a class of fixed".</p>
+    <pre style="background: #ff9; padding: 15px;">  &lt;script type="text/javascript">   $(function() {    $("li:last", $("ul.fixed")).css("backgroundColor", "#cccccc");   });  &lt;/script>    &lt;ul class="fixed">   &lt;li>List 1 - 1&lt;/li>   &lt;li>List 1 - 2&lt;/li>   &lt;li>List 1 - 3&lt;/li>  &lt;/ul>    &lt;ul class="fixed">   &lt;li>List 2 - 1&lt;/li>   &lt;li>List 2 - 2&lt;/li>   &lt;li>List 2 - 3&lt;/li>  &lt;/ul>  </pre>    <p>Personally I think this shouldn't be the way to do it but I'm open to be told otherwise if there's a valid reason.</p>

@@ -1,0 +1,10 @@
+---
+title: Railo's new default value in structFind()
+---
+
+<p>Mapping one value to another is a nice thing to do, setting a default if the key isn't found however makes it less pretty.</p>
+<p>Give a map:</p>
+<pre class="code">  myMap = {   x = 123,   y = 321,   z = 101  };  </pre>    <p>Get a mapping or a default if the key isn't there:</p>
+<pre class="code">  myVar = myMap.find("y", 0);  </pre>    <p>What would you have done before?</p>
+<pre class="code">  if (myMap.keyExists("y")) {   myVar = myMap.y;  } else {   myVar = 0;  }  </pre>    <p>Or?</p>
+<pre class="code">  myVar = myMap.keyExists("y") ? myMap.y : 0;  </pre>    <p>That last one isn't so bad.</p>
