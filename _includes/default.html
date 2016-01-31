@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>{{ page.title | xml_escape }}</title>
+	{% include styles.html %}
+</head>
+<body>
+	<h1>{{ page.title | xml_escape }}</h1>
+	{{ content }}
+</body>
+</html>
