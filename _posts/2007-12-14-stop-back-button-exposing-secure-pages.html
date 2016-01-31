@@ -1,9 +1,9 @@
 ---
+layout: post
 title: Stop back button exposing secure pages
 summary: If you log into a secure area, navigate around, log out and then hit the back button, you'll see secure pages.
-categories: [ColdFusion]
 tags: [ColdFusion]
 ---
 
-If you log into a secure area, navigate around, log out and then hit the back button, you'll see secure pages.
+<p>If you log into a secure area, navigate around, log out and then hit the back button, you'll see secure pages.</p>
 <p>To get around this you can add response headers to expire the page.</p>    <pre style="background: #ff9; padding: 15px;">  &lt;cfheader name=&quot;Expires&quot; value=&quot;#GetHTTPTimeString(Now())#&quot;&gt;  &lt;cfheader name=&quot;Pragma&quot; value=&quot;no-cache&quot;&gt;  &lt;cfheader name=&quot;cache-control&quot; value=&quot;no-cache, no-store, must-revalidate&quot;&gt;  </pre>    <p>The downside being that there is less caching and more requests to the server, but for a secure area this seems like a nice trade-off.</p>    <p>Thanks to Rich Cooper for the code snippet.</p>

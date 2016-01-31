@@ -1,9 +1,9 @@
 ---
+layout: post
 title: Sometimes it's the little things
 summary: It's not often I'm stumped with an error in ColdFusion, but this one had me for a while.
-categories: [ColdFusion]
 tags: [ColdFusion]
 ---
 
-It's not often I'm stumped with an error in ColdFusion, but this one had me for a while.
+<p>It's not often I'm stumped with an error in ColdFusion, but this one had me for a while.</p>
 <p>I've been doing this ColdFusion thing for, as of today, a month short of 7 years. I'm not often suprised by CF but this had me thinking long and hard for embarrassingly longer than I would like to admit.</p>  <p>Now, without looking too far down the page, what would you expect from the following:</p>  <pre style="background: #ff9; padding: 15px;">&lt;cfset VARIABLES.someVar = &quot;&quot;&gt;    &lt;cfif someConditionThatMightBeTrue&gt;     &lt;cfset VARIABLES.someVar = CreateObject(&quot;component&quot;, &quot;path.to.my.cfc&quot;)&gt;  &lt;/cfif&gt;    &lt;cfif VARIABLES.someVar EQ &quot;&quot;&gt;   We haven't created the object yet.  &lt;cfelse&gt;   We have an object!  &lt;/cfif&gt;</pre>  <p>Me? I was thinking it would work as I wanted. Check to see if VARIABLES.someVar was an empty string, if not, the object hadn't been created.</p>  <p>Why then did it take me so long to see that comparing a string to an object, once it had been created, with EQ was the reason things weren't working as I expected?</p>  <p>You'd think the following error would have speeded up the debugging process also!</p>  <p>Complex object types cannot be converted to simple values.</p>  <p>Anyway, the point is. Use IsSimpleValue() rather than EQ.</p>

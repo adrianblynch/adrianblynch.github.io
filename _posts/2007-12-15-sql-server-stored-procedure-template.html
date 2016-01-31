@@ -1,9 +1,9 @@
 ---
+layout: post
 title: SQL Server stored procedure template
 summary: Whenever I need to create an SP, this is the file I start with.
-categories: [SQL]
 tags: [SQL]
 ---
 
-Whenever I need to create an SP, this is the file I start with.
+<p>Whenever I need to create an SP, this is the file I start with.</p>
 <p>A quick find and replace of SP_NAME, the deletion of the transaction code if it's not needed and the entering of the main SQL statements in place of MAIN_STATEMENT is all it takes to end up with a file with which to create a stored procedure from.</p>    <pre style="background: #ff9; padding: 15px;">IF EXISTS (SELECT * FROM sysobjects WHERE name = &quot;SP_NAME&quot; AND type = &quot;P&quot;) BEGIN   DROP PROCEDURE SP_NAME   PRINT &quot;Dropped procedure: SP_NAME&quot;  END    GO    CREATE PROCEDURE SP_NAME     PARAMS    AS    BEGIN     BEGIN TRANSACTION     SET NOCOUNT ON     DECLARE @errorCode INT     MAIN_STATEMENT     SELECT @errorCode = @@ERROR   --EXEC @errorCode = ANOTHER_SP @PARAM1, @PARAM2     IF @errorCode <> 0    GOTO ERROR_EXIT     GOTO PROCEDURE_EXIT     ERROR_EXIT:       IF @@TRANCOUNT &lt;&gt; 0     ROLLBACK TRANSACTION      RETURN @errorCode     PROCEDURE_EXIT:       IF @@TRANCOUNT &lt;&gt; 0     COMMIT TRANSACTION      RETURN @errorCode    END    GO    IF EXISTS (SELECT * FROM sysobjects WHERE name = &quot;SP_NAME&quot; AND type = &quot;P&quot;) BEGIN     PRINT &quot;Created procedure: SP_NAME&quot;   -- GRANT EXECUTE ON SP_NAME TO USER     END ELSE BEGIN     PRINT &quot;Error creating procedure: SP_NAME&quot;     END    GO</pre>    <p>The following might warrant an explaination:</p>    <pre style="background: #ff9; padding: 15px;">  MAIN_STATEMENT    SELECT @errorCode = @@ERROR  --EXEC @errorCode = ANOTHER_SP @param    IF @errorCode <> 0   GOTO ERROR_EXIT  </pre>    <p>After a statement is run, we select the error code into our own local variable, @errorCode, to be checked on later. If we don't do this, but instead check @@ERROR directly, the IF statement alters @@ERROR!</p>    <p>The commented out line is a call to another SP which also selects the error code it produces, into a local variable.</p>

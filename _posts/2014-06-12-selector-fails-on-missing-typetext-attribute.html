@@ -1,9 +1,9 @@
 ---
+layout: post
 title: Selector fails on missing type="text" attribute
 summary: Debugging some jQuery, the selector <i>input[type='text']</i> was refusing to select a text input in the page.
-categories: [jQuery]
-tags: [jQuery]
+tags: [jQuery,JavaScript]
 ---
 
-Debugging some jQuery, the selector <i>input[type='text']</i> was refusing to select a text input in the page.
+<p>Debugging some jQuery, the selector <i>input[type='text']</i> was refusing to select a text input in the page.</p>
 <p>By default the type attribute defaults to text, so visually and functionally, it appears like everything is OK.</p>    <p>jQuery however, won't select it if you specify [type='text'].</p>    <pre class="code">  &lt;form&gt;   &lt;input type="text" /&gt;   &lt;input type="text" /&gt;   &lt;input /&gt;   &lt;input type="text" /&gt;  &lt;/form&gt;  </pre>    <pre class="code">  console.log($("form input[type='text']").length); // Returns 3 rather than 4  </pre>    <p>I'm not sure how I feel about this being a bug or not. Easy enough to fix!</p>    <p>Tested on Chrome 22, 35 and FF15</p>

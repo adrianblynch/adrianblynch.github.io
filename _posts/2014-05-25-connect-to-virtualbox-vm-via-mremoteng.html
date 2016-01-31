@@ -1,9 +1,9 @@
 ---
+layout: post
 title: Connect to VirtualBox VM via mRemoteNG
 summary: Accessing your VMs with the GUI of VirtualBox is OK, but without tweaking, things are a little frustrating.
-categories: [Miscellaneous]
-tags: [Miscellaneous]
+tags: []
 ---
 
-Accessing your VMs with the GUI of VirtualBox is OK, but without tweaking, things are a little frustrating.
+<p>Accessing your VMs with the GUI of VirtualBox is OK, but without tweaking, things are a little frustrating.</p>
 <p>The window size is the first thing I'd change, but googling around, the effort is too much.</p>    <p>Easier to just install <a href="http://www.mremoteng.org/" target="_blank">mRemoteNG</a> and connect to your VM via SSH.</p>    <p><b>Steps</b></p>  <ul>  <li>Install mRemoteNG</li>  <li>Fire up VirtualBox, right click the VM you wish to connect to</li>  <li>In the Network section, for <i>Adapter 1</i>, tick <i>Enable Network Adapter</i> and select <i>Bridged Adapter</i> in the select menu.</li>  <li>Start your VM and login. Type <i>ifconfig</i> and note the IP of eth0</li>  <li>Ensure your VM has an SSH server, <i>sudo apt-get install openssh-server</i> on my Ubuntu servers</li>  <li>Back on your host machine, fire up mRemoteNG and create a new connection using the IP of the VM</li>  </ul>    <p>If you have multiple VMs running, collecting all the terminals in one place is nicer than ever more windows.</p>

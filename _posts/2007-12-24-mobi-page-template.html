@@ -1,9 +1,9 @@
 ---
+layout: post
 title: .mobi page template
 summary: I've recently bought some .mobi domain names and wanted to get things right, mark-up wise. Here's what I've settled on and the problems it causes.
-categories: [Miscellaneous]
-tags: [Miscellaneous]
+tags: []
 ---
 
-I've recently bought some .mobi domain names and wanted to get things right, mark-up wise. Here's what I've settled on and the problems it causes.
+<p>I've recently bought some .mobi domain names and wanted to get things right, mark-up wise. Here's what I've settled on and the problems it causes.</p>
 <p>First I change(or is it add?) the <strong>content-type</strong> response header, <strong>application/xhtml+xml;charset=utf-8</strong>. In this case with ColdFusion:</p>    <pre style="background: #ff9; padding: 15px;">&lt;cfheader name=&quot;content-type&quot; value=&quot;application/xhtml+xml;charset=utf-8&quot;&gt;</pre>    <p>Then I add the following <strong>DOCTYPE</strong> and html name space.</p>    <pre style="background: #ff9; padding: 15px;">&lt;!DOCTYPE html PUBLIC &quot;-//WAPFORUM//DTD XHTML Mobile 1.0//EN&quot; &quot;http://www.wapforum.org/DTD/xhtml-mobile10.dtd&quot;&gt;  &lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;  &lt;head&gt;   &lt;title&gt;Page title&lt;/title&gt;  &lt;/head&gt;  &lt;body&gt;    &lt;h1&gt;Page title&lt;/h1&gt;    &lt;p&gt;Paragraph&lt;/p&gt;    &lt;/body&gt;  &lt;/html&gt;</pre>    <p>This seems to work quite nicely except when I go to view the page in IE7 and I get prompted to download the file. I'll look into that another time.</p>    <p>Another thing to take into consideration is caching. With this is mind I use the following:</p>    <pre style="background: #ff9; padding: 15px;">&lt;cfheader name=&quot;expires&quot; value=&quot;#GetHTTPTimeString(DateAdd('d', 1, Now()))#&quot;&gt;</pre>    <p>This is a <a href="http://ready.mobi/launch.jsp?locale=en_EN">nice tool to check your .mobi pages</a> for problems. Then of course there's <a href="http://validator.w3.org/">the validator we all use</a> and how one of <a href="http://validator.w3.org/check?uri=http%3A%2F%2Fallcabs.mobi%2F">my .mobi sites turns out</a>.</p>

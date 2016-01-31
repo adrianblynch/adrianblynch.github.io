@@ -1,9 +1,9 @@
 ---
+layout: post
 title: Railo - acting on null as a string
 summary: When you act on a variable as a string but instead is null, it's treated as an empty string.
-categories: [ColdFusion]
-tags: [ColdFusion]
+tags: [ColdFusion,Railo]
 ---
 
-When you act on a variable as a string but instead is null, it's treated as an empty string.
+<p>When you act on a variable as a string but instead is null, it's treated as an empty string.</p>
 <p>Take concatenation:</p>    <pre class="code">   x = null;   echo("X = " & x);              // "X ="   echo("X = #x#");               // "X ="   echo("Null = #null#");         // "Null ="   echo(expandPath(null));        // "/path/to/current/directory"   echo(repeatString(null, 100)); // 100 empty strings!   echo(x.len());                 // Error: can't call method [len] on object, object is null   echo("#x#".len());             // Error: can't call method [len] on object, object is null - I expected this to work   echo((x & "").len());          // 0  </pre>    <p>expandPath(null) caught me out recently!</p>

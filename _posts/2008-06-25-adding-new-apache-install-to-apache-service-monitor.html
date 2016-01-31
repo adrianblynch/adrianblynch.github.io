@@ -1,9 +1,9 @@
 ---
+layout: post
 title: Adding new Apache install to Apache Service Monitor
 summary: Just installed another instance of Apache? Not appearing in the Apache Service Monitor? Read on...
-categories: [Miscellaneous]
-tags: [Miscellaneous]
+tags: []
 ---
 
-Just installed another instance of Apache? Not appearing in the Apache Service Monitor? Read on...
+<p>Just installed another instance of Apache? Not appearing in the Apache Service Monitor? Read on...</p>
 <p>I installed Apache 2.2 on my local machine as I hadn't used my current install of Apache 2.0 for a while and the httpd.conf file was looking a little bit messy.</p>    <p>I didn't install it as a service for reasons that escape me and I soon grew tired of having the command window open whilst it was running.</p>    <p>A little digging revealed that you can add it as a service by running the following in your new installs bin directory:</p>    <pre style="background: #ff9; padding: 15px;">httpd -k install</pre>    <p>This seemed to do the trick for me and now I have Apache2 and Apache2.2 as options in the system tray Service Monitor.</p>
