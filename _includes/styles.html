@@ -36,18 +36,27 @@
 	}
 
 	/* Taken from: http://cssglobe.com/lab/css3_tags/01.html; */
-	/*.post{
+	ul.posts {
+		list-style: none;
+		margin: 0px;
+		padding: 0px;
+	}
+	li.post {
 		position:relative;
-		padding:10px 20px;
-		background:#f8f8f8;
-		-moz-border-radius:10px;
-		-webkit-border-radius:10px;
-		border-radius:10px;
-		width:450px;
-		border:1px solid #e8e8e8;
-		margin-bottom:20px;
-		}
-	.tags{
+		padding: 10px;
+		background: #f8f8f8;
+		border-radius: 10px;
+		border: 1px solid #e8e8e8;
+		margin-bottom: 20px;
+	}
+	li.post:last-child {
+		margin-bottom: 0px;
+	}
+	li.post h2 {
+		margin: 0px;
+		padding: 0px;
+	}
+	/*.tags{
 		margin:0;
 		padding:0;
 		position:absolute;
